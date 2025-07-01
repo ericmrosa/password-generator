@@ -1,19 +1,9 @@
-@font-face {
-    font-family: 'Cedora Normal';
-    src: url('Cedora-RegularStd.otf');
-}
-
-@font-face {
-    font-family: 'Cedora Bold';
-    src: url('Cedora-BoldStd.otf');
-}
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: #8f8f8f;
-    font-family: 'Cedora Normal';
 }
 
 .container {
@@ -42,7 +32,6 @@ button {
     margin: 4px 2px;
     border-radius: 5px;
     cursor: pointer;
-    font-family: 'Cedora Normal';
     margin-top: 20px;
 }
 
