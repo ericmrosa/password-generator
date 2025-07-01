@@ -2,13 +2,13 @@
 <html>
 
 <head>
-    <title>Webworks Generator</title>
+    <title>Password Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div class="container">
-    <h2 style="font-family: 'Cedora Bold'; font-weight: bold;">Webworks Password Generator</h2>
+    <h2 style="font-weight: bold;">Webworks Password Generator</h2>
         <form method="post">
             <label for="length">Select Password Length (1-50): <span id="lengthDisplay">8</span></label>
             <br>
@@ -30,7 +30,7 @@
                     onchange="updatePassword()"> Include Numbers</label><br><br>
 
             <button type="button" onclick="updatePassword()"
-                style="font-family: 'Cedora', sans-serif; font-weight: bold;">Generate Password</button>
+                style="font-weight: bold;">Generate Password</button>
         </form>
 
         <?php
@@ -61,7 +61,7 @@
         ?>
 
         <input type="text" value="<?php echo $password; ?>" id="password" readonly><br><br>
-        <button onclick="copyPassword()" style="font-family: 'Cedora Normal', sans-serif; font-weight: bold;">Copy
+        <button onclick="copyPassword()" style="font-weight: bold;">Copy
             Password</button>
 
         <script>
