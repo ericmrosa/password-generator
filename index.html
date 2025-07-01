@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Webworks Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+    <h2 style="font-family: 'Cedora Bold'; font-weight: bold;">Webworks Password Generator</h2>
+        <form method="post">
+            <label for="length">Select Password Length (1-50): <span id="lengthDisplay">8</span></label>
+            <br>
+            <input type="range" id="length" name="length" min="1" max="50"
+                value="<?php if(isset($_POST['length'])) { echo $_POST['length']; } else { echo '8'; } ?>"
+                oninput="document.getElementById('lengthDisplay').innerText = this.value; updatePassword();">
+            <br><br>
+
+            <label><input type="checkbox" id="upper" name="upper" <?php if(isset($_POST['upper'])) { echo 'checked'; } ?>
+                    onchange="updatePassword()"> Include Uppercase Characters</label><br>
+
+            <label><input type="checkbox" id="lower" name="lower" <?php if(isset($_POST['lower'])) { echo 'checked'; } ?>
+                    onchange="updatePassword()"> Include Lowercase Characters</label><br>
+
+            <label><input type="checkbox" id="symbols" name="symbols" <?php if(isset($_POST['symbols'])) { echo 'checked'; } ?>
+                    onchange="updatePassword()"> Include Symbols</label><br>
+
+            <label><input type="checkbox" id="numbers" name="numbers" <?php if(isset($_POST['numbers'])) { echo 'checked'; } ?>
+                    onchange="updatePassword()"> Include Numbers</label><br><br>
+
+            <button type="button" onclick="updatePassword()"
+                style="font-family: 'Cedora', sans-serif; font-weight: bold;">Generate Password</button>
+        </form>
+
+        <?php
+        function generatePassword($length, $upper, $lower, $symbols, $numbers) {
+            $characters = '';
+            if ($upper) $characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if ($lower) $characters .= 'abcdefghijklmnopqrstuvwxyz';
+            if ($symbols) $characters .= '!@#$%^&*()_+=-{}][;:<>,.?';
+            if ($numbers) $characters .= '0123456789';
+
+            $password = '';
+            $charactersLength = strlen($characters);
+            for ($i = 0; $i < $length; $i++) {
+                if ($charactersLength > 0) {
+                    $password .= $characters[rand(0, $charactersLength - 1)];
+                }
+            }
+            return $password;
+        }
+
+        $length = isset($_POST['length']) ? $_POST['length'] : 8;
+        $upper = isset($_POST['upper']);
+        $lower = isset($_POST['lower']);
+        $symbols = isset($_POST['symbols']);
+        $numbers = isset($_POST['numbers']);
+
+        $password = generatePassword($length, $upper, $lower, $symbols, $numbers);
+        ?>
+
+        <input type="text" value="<?php echo $password; ?>" id="password" readonly><br><br>
+        <button onclick="copyPassword()" style="font-family: 'Cedora Normal', sans-serif; font-weight: bold;">Copy
+            Password</button>
+
+        <script>
+            function copyPassword() {
+                var copyText = document.getElementById("password");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+                alert("Password copied to clipboard: " + copyText.value);
+            }
+
+            function updatePassword() {
+                var length = document.getElementById('length').value;
+                var upper = document.getElementById('upper').checked;
+                var lower = document.getElementById('lower').checked;
+                var symbols = document.getElementById('symbols').checked;
+                var numbers = document.getElementById('numbers').checked;
+
+                var characters = '';
+                if (upper) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                if (lower) characters += 'abcdefghijklmnopqrstuvwxyz';
+                if (symbols) characters += '!@#$%^&*()_+=-{}][;:<>,.?';
+                if (numbers) characters += '0123456789';
+
+                var password = '';
+                var charactersLength = characters.length;
+                for (var i = 0; i < length; i++) {
+                    if (charactersLength > 0) {
+                        password += characters.charAt(Math.floor(Math.random() * charactersLength));
+                    }
+                }
+
+                document.getElementById('password').value = password;
+            }
+        </script>
+    </div>
+</body>
+
+</html>
